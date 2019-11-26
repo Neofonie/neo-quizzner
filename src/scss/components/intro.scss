@@ -1,0 +1,93 @@
+.intro {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    h1 {
+        font-size: $fs-omg;
+        text-align: center;
+        margin: auto;
+        padding-top: 200px;
+        display: block;
+    }
+
+    .loading-categories {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+        justify-content: center;
+        width: $screen-sm-min;
+        margin: auto;
+        margin-top: 20%;
+
+        .loading-category {
+            flex-direction: row;
+            padding: $fs-s;
+            text-align: center;
+            border: 1px solid $color-highlight-higher;
+            background: $color-matte-dark;
+            transition: all 0.5s ease-in-out;
+            border-radius: 3px;
+            opacity: 0;
+
+            &.loading {
+                opacity: 1;
+                font-weight: 800;
+                box-shadow: 0 0 50px $color-green;
+                animation: dot-selection 1s infinite;
+                @keyframes dot-selection {
+                    0% {
+                        box-shadow: 0 0 50px $color-green;
+                        transition-timing-function: linear;
+                    }
+
+                    25% {
+                        box-shadow: 0 0 0 $color-green;
+                        transition-timing-function: linear;
+                    }
+
+                    50% {
+                        box-shadow: 0 0 50px $color-green;
+                        transition-timing-function: linear;
+                    }
+
+                    75% {
+                        box-shadow: 0 0 0 $color-green;
+                        transition-timing-function: linear;
+                    }
+
+                    100% {
+                        box-shadow: 0 0 50px $color-green;
+                        transition-timing-function: linear;
+                    }
+                }
+
+            }
+
+            &.loaded {
+                opacity: 1;
+                box-shadow: 0 0 0;
+                background-color: $color-green;
+                font-weight: 800;
+                border-color: $color-green-dark;
+                text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+                transition: all 0.5s ease-in-out;
+            }
+
+        }
+
+        &.loaded {
+            filter: blur(20px);
+            transform: matrix3d(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+            -webkit-transform: matrix3d(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+            opacity: 0;
+            transition: all 1s 1s ease-in-out;
+
+            .loading-category {
+
+            }
+        }
+    }
+}

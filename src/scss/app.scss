@@ -1,0 +1,14 @@
+:root {
+
+}
+
+@import "./mixins/responsive.scss";
+@import "./mixins/typo.scss";
+@import "./mixins/colors.scss";
+@import "./mixins/modal.scss";
+
+@import "./components/base.scss";
+@import "./components/header.scss";
+@import "./components/intro.scss";
+@import "./components/setup.scss";
+@import "./components/game.scss";

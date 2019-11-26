@@ -1,0 +1,120 @@
+.scramble {
+    &.question {
+        .text-wrapper {
+            width: 60%;
+            line-height: $fs-xxl;
+        }
+
+        .part-wrapper {
+            overflow: hidden;
+            display: inline-block;
+            padding: 15px 3px 7px 3px;
+        }
+
+        .part {
+            line-height: 54px;
+        }
+    }
+}
+
+.answers {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    transition: all 1s ease-in-out;
+    opacity: 1;
+
+
+    &.away {
+        transition: all 1s 1s ease-in-out;
+        opacity: 0;
+        filter: blur(12px);
+    }
+
+    .scramble {
+        position: relative;
+        font-size: $fs-xxl;
+        margin: auto;
+        text-align: left;
+        overflow: hidden;
+        min-width: 20%;
+        max-width: 60%;
+        padding-left: 80px;
+        overflow: inherit;
+        transform-origin: left;
+        transition: all 0.2s ease-in-out;
+        filter: blur(12px);
+
+        &:before {
+            position: absolute;
+            overflow: hidden;
+            left: 10px;
+            top: 20px;
+            content: attr(data-index);
+            font-weight: 200;
+            width: 40px;
+            line-height: 45px;
+            text-align: center;
+            border: 1px solid $color-highlight-higher;
+            border-radius: 5px;
+            font-size: $fs-xl;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .text-wrapper {
+            position: relative;
+            display: inline-block;
+            padding-top: 0.2em;
+            padding-right: 0.05em;
+            padding-bottom: 0.1em;
+            overflow: hidden;
+            line-height: $fs-xl;
+
+            .part-wrapper {
+                overflow: hidden;
+                display: inline-block;
+                padding: 15px 3px 7px 3px;
+            }
+
+            .part {
+                display: inline-block;
+                font-weight: 900;
+            }
+        }
+
+        &.scramble-words {
+            .part {
+                margin-right: 10px;
+            }
+        }
+
+        &.active {
+            transition: all 0.05s ease-in-out;
+            border-color: $color-matte-darkest;
+            transform: scale(1.2);
+            transform-origin: left;
+            color: $color-green;
+
+            &:before {
+                color: $color-green-dark;
+                background-color: $color-green-dark;
+                transform: scale(1.2);
+                box-shadow: 0 0 50px $color-green;
+                transition: all 0.05s ease-in-out;
+            }
+        }
+
+        &.wrong {
+            .part {
+                color: $color-primary;
+            }
+
+            &:before {
+                color: $color-primary-dark;
+                background-color: $color-primary-dark;
+                box-shadow: 0 0 50px $color-primary;
+            }
+        }
+    }
+
+}

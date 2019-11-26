@@ -1,0 +1,89 @@
+* {
+    font-family: 'Exo', 'Arial';
+    font-weight: 400;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(0deg, $color-deep 0%, $color-foreground 100%);
+    color: $color-high;
+    overflow: hidden;
+}
+
+body {
+    overflow-x: hidden;
+
+    &:before {
+    }
+
+    &.loading {
+        &:before {
+        }
+
+        &:after {
+            @keyframes infinite-rotation {
+                0% {
+                    transform: rotate(0);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        }
+
+        .app {
+            opacity: 0;
+            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0);
+            transition: all .2s ease-in-out;
+        }
+    }
+
+    &.resizing {
+        &:before {
+            content: 'resizing...';
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .app {
+            opacity: 0;
+            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0);
+            transition: all .2s ease-in-out;
+        }
+    }
+}
+
+.scramble {
+    position: absolute;
+    top: 30%;
+    font-weight: 900;
+    font-size: $fs-huge;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+
+    .text-wrapper {
+        position: relative;
+        display: inline-block;
+        padding-top: 0.2em;
+        padding-right: 0.05em;
+        padding-bottom: 0.1em;
+        overflow: hidden;
+
+        .part {
+            display: inline-block;
+            line-height: 1em;
+            font-weight: 100;
+        }
+    }
+
+    &.scramble-words {
+        .part {
+            margin-right: 10px;
+        }
+    }
+}

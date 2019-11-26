@@ -1,0 +1,6 @@
+.DS_Store
+.hot/
+.idea/
+dist/
+docs/
+node_modules/

@@ -1,0 +1,26 @@
+@mixin font-face($style-name, $file, $family, $weight) {
+    $filepath: "/css/fonts/" + $family + "/" + $file;
+    @font-face {
+        font-family: "#{$style-name}";
+        font-weight: $weight;
+        font-display: swap;
+        src: url($filepath + ".woff2") format('woff2');
+    }
+}
+
+@include font-face('Exo', 'Exo-Thin', 'exo-webfont', 200);
+@include font-face('Exo', 'Exo-Light', 'exo-webfont', 300);
+@include font-face('Exo', 'Exo-Medium', 'exo-webfont', 400);
+@include font-face('Exo', 'Exo-Bold', 'exo-webfont', 500);
+@include font-face('Exo', 'Exo-Black', 'exo-webfont', 800);
+
+$fs-xxs: 10px;
+$fs-xs: 12px;
+$fs-s: 14px;
+$fs-m: 15px;
+$fs-l: 18px;
+$fs-xl: 22px;
+$fs-xxl: 42px;
+$fs-huge: 60px;
+$fs-omg: 90px;
+$fs-jesus: 140px;

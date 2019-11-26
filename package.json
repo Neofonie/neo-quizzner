@@ -1,0 +1,43 @@
+{
+  "name": "neo-quizzner",
+  "version": "0.0.1",
+  "description": "Fast Quizzing",
+  "author": "neofonie GmbH",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=dev webpack-dev-server --config config/index.js --progress --colors --watch --display-modules ",
+    "build": "cross-env NODE_ENV=prod webpack --config config/index.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/plugin-transform-classes": "^7.5.5",
+    "@babel/plugin-transform-regenerator": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/runtime": "^7.6.2",
+    "animejs": "^3.1.0",
+    "babel-loader": "^8.0.6",
+    "countup.js": "^2.0.4",
+    "cross-env": "^6.0.3",
+    "css-loader": "^3.2.0",
+    "es6-templates": "^0.2.3",
+    "eslint": "^6.5.1",
+    "eslint-loader": "^3.0.2",
+    "extract-loader": "^3.1.0",
+    "file-loader": "^4.2.0",
+    "fs-extra": "^8.1.0",
+    "node-sass": "^4.12.0",
+    "ramda": "^0.26.1",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.0",
+    "stylelint": "^11.0.0",
+    "stylelint-webpack-plugin": "^1.0.2",
+    "template-literals-loader": "^1.1.2",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,47 @@
+.game-rounds {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    display: block;
+
+    .game-rounds-actual {
+        width: 150px;
+        height: 150px;
+        border-radius: 75px;
+        background: $color-high;
+        line-height: 160px;
+        color: $color-foreground-dark;
+        text-align: center;
+        font-size: $fs-omg;
+        font-weight: 600;
+        transition-timing-function: ease-in-out;
+        transition-property: background-color;
+        transition-duration: 0.2s;
+    }
+
+    .game-rounds-max {
+        width: 60px;
+        height: 60px;
+        line-height: 70px;
+        color: $color-high;
+        text-align: center;
+        font-size: $fs-xxl;
+        top: 0;
+        right: -60px;
+        position: absolute;
+        font-weight: 600;
+    }
+
+    &.buzzed {
+        .game-rounds-actual {
+            transition-timing-function: ease-in-out;
+            transition-property: all;
+            transition-duration: 0.2s;
+            animation: rotate 1.5s linear infinite;
+            @keyframes rotate{
+                to{ transform: rotate(360deg); }
+            }
+        }
+    }
+
+}

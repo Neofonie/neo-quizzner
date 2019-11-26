@@ -1,0 +1,33 @@
+$color-primary: #E60023;
+$color-primary-dark: darken(desaturate($color-primary, 20%), 20%);
+$color-primary-light: lighten(desaturate($color-primary, 20%), 20%);
+
+$color-secondary: #104080;
+$color-secondary-dark: darken(desaturate($color-secondary, 20%), 20%);
+$color-secondary-light: lighten(desaturate($color-secondary, 20%), 20%);
+
+$color-green: #208030;
+$color-green-dark: darken(desaturate($color-green, 0%), 10%);
+$color-green-darker: darken(desaturate($color-green, 0%), 30%);
+$color-green-light: lighten(desaturate($color-green, 20%), 20%);
+
+$color-foreground: #444444;
+
+$color-foreground-dark: darken($color-foreground, 2%);
+$color-foreground-darker: darken($color-foreground, 6%);
+$color-foreground-darkest: darken($color-foreground, 10%);
+
+$color-high: #ffffff;
+$color-deep: #000000;
+$color-chalk: #dddddd;
+$color-beton: #bbbbbb;
+$color-dark: #999999;
+
+$color-matte-dark: rgba(0, 0, 0, 0.2);
+$color-matte-darker: rgba(0, 0, 0, 0.4);
+$color-matte-darkest: rgba(0, 0, 0, 0.6);
+
+$color-highlight-high: rgba(255, 255, 255, 0.2);
+$color-highlight-higher: rgba(255, 255, 255, 0.4);
+$color-highlight-highest: rgba(255, 255, 255, 0.6);
+
