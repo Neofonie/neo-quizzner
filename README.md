@@ -14,7 +14,7 @@ Feed the quizzner with csv web exports from google sheets.
 Node 12 needed.
 
 ```
-git clone https://github.com/seekwhencer/neo-quizzner.git
+git clone https://github.com/Neofonie/neo-quizzner.git
 cd neo-quizzner
 npm install
 ```
