@@ -2,7 +2,7 @@
  
 ![alt text](../master/public/screenshots/neo-quizzner_01.png?raw=true "Neofonie Quizzner #1")
 
-[![Build Status](https://travis-ci.org/seekwhencer/neo-quizzner.svg?branch=master)](https://travis-ci.org/seekwhencer/neo-quizzner) 
+[![Build Status](https://travis-ci.org/Neofonie/neo-quizzner.svg?branch=master)](https://travis-ci.org/Neofonie/neo-quizzner) 
 
 This is a simple and pure javascript quiz-machine. Written in ECMA Script 6.  
 Feed the quizzner with csv web exports from google sheets. 
