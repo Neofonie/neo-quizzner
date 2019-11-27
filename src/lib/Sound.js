@@ -68,6 +68,9 @@ export default class extends Module {
                 },{
                     name: 'buzzed',
                     file: 'buzzed.mp3'
+                },{
+                    name: 'skip',
+                    file: 'all_players_wrong.mp3'
                 },
             ];
 
@@ -102,6 +105,9 @@ export default class extends Module {
                 }, {
                     name: 'player-buzzed',
                     sound: 'buzzed'
+                }, {
+                    name: 'all-players-wrong',
+                    sound: 'skip'
                 }
 
             ];

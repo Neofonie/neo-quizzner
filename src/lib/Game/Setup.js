@@ -13,6 +13,7 @@ export default class extends Module {
             this.label = 'SETUP';
             this.game = args;
             this.app = this.game.app;
+            this.sound = this.app.sound;
 
             console.log(this.label, '>>> INIT');
 

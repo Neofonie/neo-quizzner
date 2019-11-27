@@ -124,6 +124,7 @@ export default class extends Module {
                             this
                                 .away()
                                 .then(() => {
+                                    this.sound.emit('all-players-wrong');
                                     return this.text(_('game.all_locked'));
                                 })
                                 .then(() => {
