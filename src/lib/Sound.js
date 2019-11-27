@@ -65,12 +65,16 @@ export default class extends Module {
                 }, {
                     name: 'correct',
                     file: 'correct.mp3'
-                },{
+                }, {
                     name: 'buzzed',
                     file: 'buzzed.mp3'
-                },{
+                }, {
                     name: 'skip',
                     file: 'all_players_wrong.mp3'
+                }, {
+                    name: 'music-question',
+                    file: 'music_question.mp3',
+                    loop: true
                 },
             ];
 
@@ -108,13 +112,19 @@ export default class extends Module {
                 }, {
                     name: 'all-players-wrong',
                     sound: 'skip'
+                }, {
+                    name: 'play-music-question',
+                    sound: 'music-question'
                 }
-
             ];
 
             // register all sound events here
             this.events.map(event => {
                 this.on(event.name, () => this.play(event.sound));
+            });
+
+            this.on('stop-music-question', () => {
+                this.stop('music-question');
             });
 
             this.on('ready', () => {
@@ -150,6 +160,10 @@ export default class extends Module {
             console.log('>>>', this.label, 'LOADING', sound.name);
             const audio = document.createElement('AUDIO');
             audio.name = sound.name;
+
+            if (sound.loop)
+                audio.loop = sound.loop;
+
             audio.oncanplay = () => {
                 console.log('>>>', this.label, 'LOADED', sound.name);
                 resolve(audio);
@@ -160,6 +174,7 @@ export default class extends Module {
             };
             audio.src = `sounds/${sound.file}`;
             audio.load();
+
         });
     }
 
@@ -168,11 +183,20 @@ export default class extends Module {
         if (!audio)
             return;
 
-        if (audio.stop)
-            audio.stop();
+        if (audio.pause)
+            audio.pause();
 
         audio.currentTime = 0;
         audio.play();
+    }
+
+    stop(name) {
+        const audio = this.items.filter(i => i.name === name)[0];
+        if (!audio)
+            return;
+
+        audio.pause();
+        audio.currentTime = 0;
     }
 
 

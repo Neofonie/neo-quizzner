@@ -9,6 +9,7 @@ export default class extends Module {
             this.label = 'PLAYERS';
             this.game = args;
             this.app = this.game.app;
+            this.sound = this.app.sound;
             this.locked = false;
             this.locked_ms = 3000;
             this.fails = 0;
@@ -113,6 +114,7 @@ export default class extends Module {
         this.locked = false;
         this.items.map(player => player.blur());
         this.game.rounds.buzzOff();
+        this.sound.emit('stop-music-question');
     }
 
     unlockPlayers() {

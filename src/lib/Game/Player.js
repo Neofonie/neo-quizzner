@@ -51,6 +51,7 @@ export default class extends Module {
         this.players.lock();
         this.players.game.emit('buzzer', this);
         this.sound.emit('player-buzzed');
+        this.sound.emit('play-music-question');
     }
 
     blur() {
@@ -88,6 +89,7 @@ export default class extends Module {
                 this.players.game.emit('wrong', number);
             }, 2000);
         }
+        this.sound.emit('stop-music-question');
         console.log('>>>', this.label, this.name, 'ANSWERS:', number, this.players.game.question);
     }
 
