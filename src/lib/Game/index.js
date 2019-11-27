@@ -10,6 +10,7 @@ export default class extends Module {
         return new Promise((resolve, reject) => {
             this.label = 'GAME';
             this.app = args;
+            this.sound = this.app.sound;
 
             console.log(this.label, '>>> INIT');
 
@@ -51,6 +52,7 @@ export default class extends Module {
             .then(setup => {
                 this.setup = setup;
                 console.log('>>>', this.label, 'SETUP COMPLETE:', this.setup.players, this.setup.categories, this.setup.rounds);
+                this.sound.emit('get-ready');
                 return this.text(_('game.letsgo'));
             })
             .then(() => {
@@ -306,8 +308,15 @@ export default class extends Module {
                 targets: `[data-scramble="title"]${className ? '.' + className : ''} .part`,
                 translateY: ["1.4em", 0],
                 translateZ: 0,
-                duration: 750,
-                delay: (el, i) => 250 * i
+                duration: 500,
+                delay: (el, i) => {
+                    const delay = 150 * i;
+                    setTimeout(() => {
+                        this.sound.emit('question-word-in');
+                    }, delay);
+
+                    return delay;
+                }
             })
             .add({
                 targets: `[data-scramble]${className ? '.' + className : ''}`,
@@ -344,7 +353,14 @@ export default class extends Module {
                 translateY: ["1.4em", 0],
                 translateZ: 0,
                 duration: 750,
-                delay: (el, i) => 250 * i
+                delay: (el, i) => {
+                    const delay = 250 * i;
+                    setTimeout(() => {
+                        this.sound.emit('answer-word-in');
+                    }, delay + 400);
+
+                    return delay;
+                }
             });
 
         return Promise.all([

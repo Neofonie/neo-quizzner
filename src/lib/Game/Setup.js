@@ -49,7 +49,7 @@ export default class extends Module {
     }
 
     text(text, stay) {
-        this.app.sound.play('zosch');
+        this.sound.emit('scramble-text-in');
         const target = createScramble(text);
         document.querySelector('body').append(target);
 

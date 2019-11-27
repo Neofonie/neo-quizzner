@@ -1,5 +1,40 @@
 import Module from '../Module.js';
 
+/**
+ * Index of all Sound Events
+ *
+ * load-category
+ * loaded-category
+ * loaded-categories-out
+ * scramble-text-in
+ * scramble-text-out
+ * setup-players-in
+ * setup-focus-player
+ * setup-button-next
+ * setup-button-all
+ * setup-button-none
+ * setup-rounds-in
+ * setup-rounds-out
+ * setup-focus-round
+ * setup-blur-round
+ * get-ready
+ * round-number
+ * players-in
+ * player-in
+ * player-buzzed
+ * player-buzzed-timeout
+ * player-chose-correct
+ * player-chose-wrong
+ * question-in
+ * question-out
+ * question-word-in
+ * answer-in
+ * answer-out
+ * answers-in
+ * answers-out
+ * answer-word-in
+ * all-players-wrong
+ */
 export default class extends Module {
     constructor(args) {
         super();
@@ -12,12 +47,69 @@ export default class extends Module {
                 {
                     name: 'plip',
                     file: 'plip_01.mp3'
-                },
-                {
+                }, {
+                    name: 'blop',
+                    file: 'plip_02.mp3'
+                }, {
+                    name: 'zirp',
+                    file: 'plip_03.mp3'
+                }, {
+                    name: 'zarp',
+                    file: 'plip_04.mp3'
+                }, {
                     name: 'zosch',
                     file: 'text_01.mp3'
+                }, {
+                    name: 'wrong',
+                    file: 'wrong.mp3'
+                }, {
+                    name: 'correct',
+                    file: 'correct.mp3'
+                },{
+                    name: 'buzzed',
+                    file: 'buzzed.mp3'
                 },
             ];
+
+            this.events = [
+                {
+                    name: 'loaded-category',
+                    sound: 'zirp'
+                }, {
+                    name: 'load-category',
+                    sound: 'blop'
+                }, {
+                    name: 'loaded-categories-out',
+                    sound: 'zosch'
+                }, {
+                    name: 'scramble-text-in',
+                    sound: 'zosch'
+                }, {
+                    name: 'get-ready',
+                    sound: 'zosch'
+                }, {
+                    name: 'question-word-in',
+                    sound: 'zirp'
+                }, {
+                    name: 'answer-word-in',
+                    sound: 'zarp'
+                }, {
+                    name: 'player-chose-correct',
+                    sound: 'correct'
+                }, {
+                    name: 'player-chose-wrong',
+                    sound: 'wrong'
+                }, {
+                    name: 'player-buzzed',
+                    sound: 'buzzed'
+                }
+
+            ];
+
+            // register all sound events here
+            this.events.map(event => {
+                this.on(event.name, () => this.play(event.sound));
+            });
 
             this.on('ready', () => {
                 console.log(this.label, '>>> READY');
@@ -41,6 +133,8 @@ export default class extends Module {
 
         return this.load(sound).then(audio => {
             this.items.push(audio);
+            return this.loadAll(index + 1);
+        }).catch(() => {
             return this.loadAll(index + 1);
         });
     }

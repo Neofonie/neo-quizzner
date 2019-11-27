@@ -7,6 +7,7 @@ export default class extends Module {
         super();
         this.label = 'PLAYER';
         this.players = args.players;
+        this.sound = this.players.app.sound;
         this.name = args.name;
         this.index = args.index;
         this.app = this.players.app;
@@ -49,6 +50,7 @@ export default class extends Module {
         this.active = true;
         this.players.lock();
         this.players.game.emit('buzzer', this);
+        this.sound.emit('player-buzzed');
     }
 
     blur() {
@@ -74,9 +76,11 @@ export default class extends Module {
 
         if (this.players.game.question.answer[this.number - 1].correct === true) {
             this.score = this.score + (this.scoring.correct - (this.players.fails * this.scoring.correctMinusPerFail));
+            this.sound.emit('player-chose-correct');
             setTimeout(() => this.players.game.emit('correct', number), this.event_delay);
         } else {
             answer.classList.add('wrong');
+            this.sound.emit('player-chose-wrong');
             this.lock();
             this.score = this.score - this.players.fails * this.scoring.wrong;
             setTimeout(() => {

@@ -8,6 +8,7 @@ export default class extends Module {
         return new Promise((resolve, reject) => {
             this.label = 'INTRO';
             this.app = args;
+            this.sound = this.app.sound;
             console.log(this.label, '>>> INIT');
 
             this.on('ready', () => {
@@ -33,6 +34,7 @@ export default class extends Module {
             this.app.on('get-category-questions', (category => {
                 console.log('>>>> FROM INTRO - GETTING ONE CATEGORY QUESTIONS', category.name);
                 this.categories.querySelector(`[data-category="${category.name}"]`).classList.add('loading');
+                this.sound.emit('load-category');
             }));
             this.app.on('got-category-questions', (category => {
                 console.log('>>>> FROM INTRO - ONE CATEGORY QUESTIONS LOADED', category.name);
@@ -40,7 +42,7 @@ export default class extends Module {
                 target.classList.remove('loading');
                 target.classList.add('loaded');
                 target.innerHTML += `(${category.questions.length})`;
-                this.app.sound.play('plip');
+                this.sound.emit('loaded-category');
             }));
 
             this.target = toDOM(IntroTemplate({
