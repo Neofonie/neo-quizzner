@@ -6,7 +6,7 @@
     display: block;
 
     .player-cards {
-        position: relative;
+        position: absolute;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-column-gap: 20px;
@@ -15,7 +15,8 @@
         width: 80%;
         padding: 0 20px;
         margin: auto;
-        bottom: -50%;
+        bottom: 27%;
+        left: 10%;
         opacity: 0;
         transition: all 0.2s ease-in-out;
 
@@ -70,7 +71,7 @@
                     left: 0;
                     top: 0;
                     font-size: $fs-xl;
-                    line-height: $fs-huge;
+                    line-height: $fs-xl;
                     border: none;
                     color: $color-foreground-dark;
                     background: none;
@@ -271,11 +272,15 @@
         text-align: center;
         padding-top: 50px;
 
+        @include media-tablet {
+            bottom: 0;
+        }
+
         button {
             background: linear-gradient(0deg, $color-chalk 0%, $color-high 30%);
             opacity: 1;
             border: none;
-            font-size: $fs-l;
+            font-size: $fs-m;
             font-weight: 900;
             letter-spacing: 0.05em;
             color: $color-foreground-dark;

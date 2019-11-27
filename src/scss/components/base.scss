@@ -12,6 +12,20 @@ body, html {
     overflow: hidden;
 }
 
+html {
+    font-size: 100%;
+    transition-property: font-size;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+
+    @include media-tv {
+        font-size: 70%;
+        transition-property: font-size;
+        transition-duration: 1s;
+        transition-timing-function: ease-in-out;
+    }
+}
+
 body {
     overflow-x: hidden;
 

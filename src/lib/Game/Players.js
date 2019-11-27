@@ -59,7 +59,7 @@ export default class extends Module {
             })
             .add({
                 targets: '.game-players .game-player',
-                translateY: [0, 200],
+                translateY: [0, 250],
                 duration: 500,
                 delay: (el, i) => 200 * i,
                 easing: 'easeInOutExpo',

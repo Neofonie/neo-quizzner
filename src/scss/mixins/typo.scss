@@ -14,13 +14,13 @@
 @include font-face('Exo', 'Exo-Bold', 'exo-webfont', 500);
 @include font-face('Exo', 'Exo-Black', 'exo-webfont', 800);
 
-$fs-xxs: 10px;
-$fs-xs: 12px;
-$fs-s: 14px;
-$fs-m: 15px;
-$fs-l: 18px;
-$fs-xl: 22px;
-$fs-xxl: 42px;
-$fs-huge: 60px;
-$fs-omg: 90px;
-$fs-jesus: 140px;
+$fs-xxs: 0.6em;
+$fs-xs: 0.7em;
+$fs-s: 1em;
+$fs-m: 1.25em;
+$fs-l: 1.5em;
+$fs-xl: 2em;
+$fs-xxl: 3em;
+$fs-huge: 4em;
+$fs-omg: 6em;
+$fs-jesus: 8em;

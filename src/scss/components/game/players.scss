@@ -32,7 +32,7 @@
         }
 
         .game-player-name {
-            line-height: $fs-huge;
+            line-height: $fs-l;
             font-size: $fs-xxl;
             font-weight: 900;
             background-color: $color-matte-dark;
@@ -40,8 +40,7 @@
         }
 
         .game-player-score {
-            line-height: $fs-huge;
-            font-weight: 900;
+            line-height: $fs-m;
             font-size: $fs-xxl;
             background-color: $color-matte-darker;
         }
@@ -53,7 +52,7 @@
             border-radius: 5px 5px 0 0;
 
             .game-player-name {
-                line-height: $fs-jesus;
+                line-height: $fs-huge;
                 transition: all 0.05s ease-in-out;
             }
         }
