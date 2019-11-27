@@ -60,13 +60,56 @@ Or you can put the resolution in this cell.
   ```
   https://docs.google.com/spreadsheets/.../pub?gid=2114668796&single=true&output=csv
   ```
-- to configure the `index tab url` for the index, give the url as option on the beginning:
+  
+## Configure
+to configure the `index tab url` for the categories index, give the url as option `categoriesUrl` at the beginning:
+
+- ***`categoriesUrl`***  
+  is the url for main csv that contains the categories with urls to their csv
+
+- ***`translationsUrl`***  
+  is the url for the translations csv
+  
+- ***`rounds`***  
+  the round selection
+  
+- ***`skipSetup`***  
+  use the `setup` field as preset
+  
+- ***`scoring`***  
+  how to calculate the score
+
+- ***`scoring.correct`***  
+  points for a correct answer
+  
+- ***`scoring.correctMinusPerFail`***  
+  this value, multiplied with the number of wrong answers from all players will be subtracted from `scoring.correct`
+
+- ***`scoring.wrong`***  
+  minus this for a wrong answer for the first wrong answer. the second wrong answered player get this twice, the third wrong answer get it three times.
+
+- ***`debug`***  
+  is always off in production.
+  
+  
   ```
   <script type="module">
       const options = {
           categoriesUrl : 'https://docs.google.com/spreadsheets/.../pub?gid=2114668796&single=true&output=csv',
           translationsUrl : 'https://docs.google.com/spreadsheets/.../pub?gid=192674322&single=true&output=csv',
-          rounds: [12,24,36,48]
+          rounds: [6, 12, 18, 24],
+          skipSetup: false,
+          setup: {
+              players: ['Matze', 'Horst', 'Marie', 'Holger'],
+              categories: ['Natur'],
+              rounds: 3
+          },
+          scoring: {
+              correct: 1000,
+              correctMinusPerFail: 200,
+              wrong: 500
+          },
+          debug: true
       };
   
       new QUIZZNER(options).then(quizzner => {
