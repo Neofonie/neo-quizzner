@@ -23,25 +23,25 @@
 
         .game-player-key {
             display: inline-block;
-            font-size: $fs-xl;
+            font-size: $fs-s;
             text-transform: uppercase;
             padding: 5px 10px;
-            margin: 20px 0 10px 0;
+            margin: 10px 0 10px 0;
             border: 1px solid $color-chalk;
             border-radius: 3px;
         }
 
         .game-player-name {
-            line-height: $fs-l;
-            font-size: $fs-xxl;
+            line-height: $fs-xl;
+            font-size: $fs-l;
             font-weight: 900;
             background-color: $color-matte-dark;
             transition: all 0.2s ease-in-out;
         }
 
         .game-player-score {
-            line-height: $fs-m;
-            font-size: $fs-xxl;
+            line-height: $fs-xl;
+            font-size: $fs-l;
             background-color: $color-matte-darker;
         }
 
@@ -52,8 +52,9 @@
             border-radius: 5px 5px 0 0;
 
             .game-player-name {
-                line-height: $fs-huge;
+                line-height: $fs-xxl;
                 transition: all 0.05s ease-in-out;
+                font-size: $fs-xl;
             }
         }
 
