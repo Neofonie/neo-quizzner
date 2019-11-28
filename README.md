@@ -114,6 +114,10 @@ to configure the `index tab url` for the categories index, give the url as optio
  debug
  ```
  
+ For examples:
+ - [https://neofonie.github.io/neo-quizzner/?skipSetup=true](https://neofonie.github.io/neo-quizzner/?skipSetup=true)
+ - [https://neofonie.github.io/neo-quizzner/?debug=true](https://neofonie.github.io/neo-quizzner/?debug=true)
+ 
  useful for testing or secret instances with different category index. for example.
  
  ## index.html 
