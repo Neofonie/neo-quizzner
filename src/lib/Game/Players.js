@@ -86,7 +86,7 @@ export default class extends Module {
 
     number(e) {
         if (Number.isInteger(e.key * 1)) {
-            console.log('>> NUMBER', e.key);
+            console.log(this.label, '>> NUMBER', e.key);
             this.player = this.items.filter(i => i.active)[0];
             if (!this.player)
                 return;
@@ -135,7 +135,7 @@ export default class extends Module {
             player.rank = rank;
             latestScore = player.score;
         });
-        console.log(this.items.map(i => {
+        console.log(this.label, 'RANK', this.items.map(i => {
             return {name: i.name, score: i.score, rank: i.rank}
         }));
     }

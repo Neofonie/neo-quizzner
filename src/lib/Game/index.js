@@ -24,7 +24,7 @@ export default class extends Module {
                         return this.run();
                     })
                     .then(() => {
-                        console.log('>>>', this.label, 'GAME OVER');
+                        console.log(this.label, '>>>', 'GAME OVER');
                         this.emit('game-over');
                     });
             });
@@ -32,7 +32,7 @@ export default class extends Module {
             this.on('hit', player => this.hit(player));
 
             this.on('new', () => {
-                console.log('>>> JUST RELOAD THE PAGE ;)');
+                console.log(this.label, '>>> JUST RELOAD THE PAGE ;)');
                 window.location.reload();
             });
 
@@ -51,7 +51,7 @@ export default class extends Module {
             })
             .then(setup => {
                 this.setup = setup;
-                console.log('>>>', this.label, 'SETUP COMPLETE:', this.setup.players, this.setup.categories, this.setup.rounds);
+                console.log(this.label, '>>>', 'SETUP COMPLETE:', this.setup.players, this.setup.categories, this.setup.rounds);
                 this.sound.emit('get-ready');
                 return this.text(_('game.letsgo'));
             })
@@ -91,19 +91,23 @@ export default class extends Module {
             .ask(index)
             .then(() => { // repeat it here
                 return this.oneRound(index + 1);
+            })
+            .catch(() => {
+                return this.finish();
             });
     }
 
     ask(index) {
-        return new Promise(resolve => {
-            console.log('>>>>>> ASKING', index + 1, `(${index})`, 'OF', this.setup.rounds);
+        return new Promise((resolve, reject) => {
+            console.log(this.label, '>>> >>> ASKING', index + 1, `(${index})`, 'OF', this.setup.rounds);
             this.players.lock(true);
-            this.getRandomCategory();
-            this.getRandomQuestion();
             this.players.unlockPlayers();
 
             this
-                .text(`${_('game.round')} ${index + 1}`)
+                .getRandomQuestion()
+                .then(() => {
+                    return this.text(`${_('game.round')} ${index + 1}`);
+                })
                 .then(() => {
                     return this.textQuestion(); // the question !!!!!!!!!1111
                 })
@@ -118,7 +122,7 @@ export default class extends Module {
                         this.event.removeListener('wrong', this.wrongListener);
 
                     this.wrongListener = number => {
-                        console.log('>>> WRONG NUMBER', number, this.event);
+                        console.log(this.label, '>>> WRONG NUMBER', number, this.event);
 
                         if (this.players.allLocked()) {
                             this
@@ -141,7 +145,7 @@ export default class extends Module {
                         this.event.removeListener('correct', this.correctListener);
 
                     this.correctListener = number => {
-                        console.log('>>> CORRECT NUMBER', number, this.event);
+                        console.log(this.label, '>>> CORRECT NUMBER', number, this.event);
                         this
                             .away()
                             .then(() => {
@@ -152,8 +156,12 @@ export default class extends Module {
                             });
                     };
                     this.on('correct', this.correctListener);
+                })
+                .catch(() => {
+                    reject();
                 });
         });
+
     }
 
     away() {
@@ -185,7 +193,7 @@ export default class extends Module {
 
     finish() {
         return new Promise(resolve => {
-            console.log('>>>>>> FINISHED', this.setup.rounds);
+            console.log(this.label, '>>>>>> FINISHED', this.setup.rounds);
             // @TODO make another, fancier end animation
             this.rounds.away();
             this
@@ -208,7 +216,7 @@ export default class extends Module {
 
     highscore() {
         const scoredPlayers = ksortObjArray(this.players.items, 'rank');
-        console.log('>>>>>>>> SCORED PLAYER', scoredPlayers);
+        console.log(this.label, '>>>>>>>> SCORED PLAYER', scoredPlayers);
         const target = toDOM('<div class="highscore"></div>');
         const className = 'rank';
         scoredPlayers.map((player, index) => {
@@ -256,7 +264,7 @@ export default class extends Module {
     }
 
     hit(player) {
-        console.log('>>> !!! <<<', player.name);
+        console.log(this.label, '>>> !!! <<<', player.name);
     }
 
     text(text, stay, className) {
@@ -373,13 +381,29 @@ export default class extends Module {
         const rand = randomInt(0, this.setup.categories.length - 1);
         const categoryName = this.setup.categories.filter((i, index) => index === rand)[0];
         this.category = this.app.data.categories.items.filter(i => i.name === categoryName)[0];
-        console.log('>>> GET RANDOM CATEGORY', rand, this.setup.categories.length, this.category);
+        console.log(this.label, '>>> GET RANDOM CATEGORY', rand, this.setup.categories.length, this.category);
     }
 
     getRandomQuestion() {
-        const rand = randomInt(0, this.category.questions.length - 1);
-        this.question = this.category.questions.filter((i, index) => index === rand)[0];
-        console.log('>>> GET RANDOM QUESTION', rand, this.category.questions.length, this.question);
+        return new Promise((resolve, reject) => {
+            this.getRandomCategory();
+            const rand = randomInt(0, this.category.questions.length - 1);
+            let questionsCount = 0;
+            this.app.data.categories.items.filter(i => this.setup.categories.includes(i.name)).map(c => c.questions.map(() => questionsCount++));
+            this.question = this.category.questions.filter((i, index) => index === rand)[0];
+            if (!this.question.burned) {
+                this.question.burned = true;
+                console.log(this.label, '>>> GOT RANDOM QUESTION', rand, this.category.questions.length, this.question, 'COUNT', questionsCount, this.round);
+                resolve();
+            } else {
+                if (this.round < questionsCount) {
+                    return this.getRandomQuestion();
+                } else {
+                    console.log(this.label, '>>> END OF POSSIBLE QUESTIONS REACHED !!!');
+                    reject();
+                }
+            }
+        });
     }
 
     get round() {
