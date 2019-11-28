@@ -104,7 +104,7 @@ export default class extends Module {
             this.players.unlockPlayers();
 
             this
-                .getRandomQuestion()
+                .getQuestion()
                 .then(() => {
                     return this.text(`${_('game.round')} ${index + 1}`);
                 })
@@ -377,33 +377,42 @@ export default class extends Module {
         ]);
     }
 
+    getQuestion(){
+        return new Promise((resolve, reject) => {
+            this.getRandomQuestion() ? resolve() : reject();
+        });
+    }
+
     getRandomCategory() {
         const rand = randomInt(0, this.setup.categories.length - 1);
         const categoryName = this.setup.categories.filter((i, index) => index === rand)[0];
         this.category = this.app.data.categories.items.filter(i => i.name === categoryName)[0];
-        console.log(this.label, '>>> GET RANDOM CATEGORY', rand, this.setup.categories.length, this.category);
+        console.log(this.label, '>>> GOT RANDOM CATEGORY:', this.category.name, 'BY INDEX:', rand, 'FROM SELECTED CATEGORIES COUNT:', this.setup.categories.length);
     }
 
-    getRandomQuestion() {
-        return new Promise((resolve, reject) => {
-            this.getRandomCategory();
-            const rand = randomInt(0, this.category.questions.length - 1);
-            let questionsCount = 0;
-            this.app.data.categories.items.filter(i => this.setup.categories.includes(i.name)).map(c => c.questions.map(() => questionsCount++));
-            this.question = this.category.questions.filter((i, index) => index === rand)[0];
-            if (!this.question.burned) {
-                this.question.burned = true;
-                console.log(this.label, '>>> GOT RANDOM QUESTION', rand, this.category.questions.length, this.question, 'COUNT', questionsCount, this.round);
-                resolve();
+    getRandomQuestion(){
+        this.getRandomCategory();
+        const rand = randomInt(0, this.category.questions.length - 1);
+        let questionsCount = 0;
+        this.app.data.categories.items.filter(i => this.setup.categories.includes(i.name)).map(c => c.questions.map(() => questionsCount++));
+        this.question = this.category.questions.filter((i, index) => index === rand)[0];
+
+        console.log(this.label, '>>> GOT RANDOM QUESTION BY INDEX:', rand, 'QUESTIONS FOR CATEGORY:', this.category.questions.length, this.question, 'ALL OVER QUESTIONS COUNT:', questionsCount, 'ROUND:', this.round);
+
+        if (!this.question.burned) {
+            this.question.burned = true;
+            return true;
+        } else {
+            console.log(this.label, '>>>> NOT BURNED ROUND:',this.round, 'QUESTIONS ALL OVER COUNT', questionsCount);
+
+            if (this.round < questionsCount) {
+                console.log(this.label, '>>>> GETTING A NEW TRY.');
+                return this.getRandomQuestion();
             } else {
-                if (this.round < questionsCount) {
-                    return this.getRandomQuestion();
-                } else {
-                    console.log(this.label, '>>> END OF POSSIBLE QUESTIONS REACHED !!!');
-                    reject();
-                }
+                console.log(this.label, '>>> END OF POSSIBLE QUESTIONS REACHED !!!');
+                return false;
             }
-        });
+        }
     }
 
     get round() {
