@@ -76,6 +76,18 @@ to configure the `index tab url` for the categories index, give the url as optio
 - ***`skipSetup`***  
   use the `setup` field as preset
   
+- ***`setup`***  
+  a preset for categories, players and rounds. use it with the `skipSetup = true`
+
+- ***`setup.categories`***  
+  a selection as array with existing category names `['Natur', 'Frontend']`
+ 
+- ***`setup.players`***  
+  a selection as array with player names `['Mechthild', 'Walter']`
+   
+- ***`setup.rounds`***  
+  how many rounds as int.
+  
 - ***`scoring`***  
   how to calculate the score
 
@@ -91,7 +103,20 @@ to configure the `index tab url` for the categories index, give the url as optio
 - ***`debug`***  
   is always off in production.
   
-  
+ ## Configure via url get parameters
+ 
+ add `?field=value&other=value` to the url to give different options.  
+ Possible fields are:
+ ```
+ categoriesUrl
+ translationsUrl
+ skipSetup
+ debug
+ ```
+ 
+ useful for testing or secret instances with different category index. for example.
+ 
+ ## index.html 
   ```
   <script type="module">
       const options = {
