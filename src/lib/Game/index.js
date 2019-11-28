@@ -271,7 +271,7 @@ export default class extends Module {
         const target = createScrambleWords(text);
         document.querySelector('body').append(target);
 
-        const readDelay = text.length * 150;
+        const readDelay = 0; //text.length * 150;
         const animation = this.app.anime
             .timeline({
                 loop: false
@@ -282,9 +282,6 @@ export default class extends Module {
                 translateZ: 0,
                 duration: 750,
                 delay: (el, i) => 250 * i
-            })
-            .add({
-                delay: readDelay
             });
 
         if (!stay) {
@@ -293,7 +290,7 @@ export default class extends Module {
                 opacity: 0,
                 filter: 'blur(10px)',
                 translateZ: 0,
-                duration: 500,
+                duration: 250,
                 delay: (el, i) => 50 * i,
                 changeComplete: () => {
                     target.remove();

@@ -126,16 +126,15 @@ export default class extends Module {
     }
 
     set score(val) {
+        const lastScore = this.score;
         this._score = val;
-        //this.scoreElement ? this.scoreElement.innerHTML = this.score : null;
         if (this.scoreElement) {
             this.scoreCountUp = new CountUp(this.scoreElement, this.score, {
-                separator: '.'
+                separator: '.',
+                startVal: lastScore
             });
             this.players.rank();
             this.scoreCountUp.start();
         }
     }
-
-
 }
