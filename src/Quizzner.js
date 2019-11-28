@@ -22,7 +22,11 @@ export default class extends Module {
                 categories: ['Natur'],
                 rounds: 12
             };
+
+            this.getParams();
             window.quizznerOptions = this.options;  // to access it for logging
+
+            console.log(this.label, '>>> INIT');
 
             this.on('ready', () => {
                 resolve(this);
@@ -92,6 +96,32 @@ export default class extends Module {
 
         this.intro.remove();
         delete this.intro;
+    }
+
+    /**
+     * you can setup via url get parameters
+     * but only strings, boolean and integer
+     * will be taken
+     */
+    getParams() {
+        let params = (new URL(document.location)).searchParams;
+        Object.keys(this.options).map(field => {
+            if (typeof this.options[field] === 'object')
+                return;
+
+            let value = params.get(field);
+
+            if (!value)
+                return;
+
+            if (typeof this.options[field] === 'boolean')
+                value === 'true' ? value = true : value = false;
+
+            if (typeof this.options[field] === 'number')
+                value = parseInt(value);
+
+            this.options[field] = value;
+        });
     }
 
 }
