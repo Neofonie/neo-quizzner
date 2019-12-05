@@ -21,7 +21,7 @@ export default class extends Module {
 
             this.actualElement = this.target.querySelector('.game-rounds-actual');
             this.maxElement = this.target.querySelector('.game-rounds-max');
-            this.maxElement.innerHTML = this.game.setup.rounds;
+            this.maxElement.innerHTML = parseInt(this.game.setup.rounds);
 
             const animationA = this.app.anime
                 .timeline({

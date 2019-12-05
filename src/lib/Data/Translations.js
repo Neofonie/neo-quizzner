@@ -64,7 +64,7 @@ export default class extends Module {
         return this.data.fetch(url);
     }
 
-    _(key, language = 'de') {
+    _(key, language) {
         if (!language)
             language = this.language;
 

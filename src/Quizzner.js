@@ -5,6 +5,7 @@ import Intro from './lib/Intro/index.js';
 import Game from './lib/Game/index.js';
 import Data from './lib/Data/index.js';
 import Sound from './lib/Sound.js';
+import QueryString from 'qs';
 
 import anime from 'animejs';
 
@@ -17,11 +18,9 @@ export default class extends Module {
             this.options = args;
             this.options.debug = this.options.debug || false;
             this.options.language = this.options.language || 'de';
-            this.options.setup = this.options.setup || {
-                players: ['Matze', 'Horst', 'Marie', 'Holger'],
-                categories: ['Natur'],
-                rounds: 12
-            };
+            this.options.setup = this.options.setup || {};
+            this.options.setup.players = this.options.setup.players || ['Matze', 'Horst', 'Marie', 'Holger'];
+            this.options.setup.categories = this.options.setup.categories ||  ['Natur'];
 
             this.getParams();
             window.quizznerOptions = this.options;  // to access it for logging
@@ -100,28 +99,20 @@ export default class extends Module {
 
     /**
      * you can setup via url get parameters
-     * but only strings, boolean and integer
-     * will be taken
+     * for example:
+     *
+     * ?rounds[]=3&rounds[]=6&setup[rounds]=1&skipSetup=false&language=en&setup[categories][]=Natur&setup[players][]=Matze&setup[players][]=Sophia
      */
+
     getParams() {
-        let params = (new URL(document.location)).searchParams;
-        Object.keys(this.options).map(field => {
-            if (typeof this.options[field] === 'object')
-                return;
+        const query = (new URL(document.location)).searchParams.toString();
+        const params = QueryString.parse(query, { plainObjects: true });
+        this.options = RAMDA.mergeDeepLeft(params, this.options);
 
-            let value = params.get(field);
-
-            if (!value)
-                return;
-
-            if (typeof this.options[field] === 'boolean')
-                value === 'true' ? value = true : value = false;
-
-            if (typeof this.options[field] === 'number')
-                value = parseInt(value);
-
-            this.options[field] = value;
-        });
+        // convert some non string values
+        this.options.rounds = this.options.rounds.map(i => parseInt(i));
+        this.options.setup.rounds = parseInt(this.options.setup.rounds);
+        this.options.debug === 'true' ? this.options.debug = true : this.options.debug = false;
+        this.options.skipSetup === 'true' ? this.options.skipSetup = true : this.options.skipSetup = false;
     }
-
 }

@@ -81,7 +81,7 @@ export default class extends Module {
         if (!index)
             index = 0;
 
-        if (index === this.setup.rounds) {
+        if (index === parseInt(this.setup.rounds)) {
             return this.finish();
         }
 

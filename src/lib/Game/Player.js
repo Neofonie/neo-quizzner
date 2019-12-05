@@ -23,6 +23,7 @@ export default class extends Module {
             correctMinusPerFail: 200,
             wrong: 500
         };
+        Object.keys(this.scoring).map(i => this.scoring[i] = parseInt(this.scoring[i]));
 
         console.log(this.label, '>>> INIT', this.name);
 
