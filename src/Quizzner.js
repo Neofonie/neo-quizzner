@@ -20,12 +20,15 @@ export default class extends Module {
             this.options.language = this.options.language || 'de';
             this.options.setup = this.options.setup || {};
             this.options.setup.players = this.options.setup.players || ['Matze', 'Horst', 'Marie', 'Holger'];
-            this.options.setup.categories = this.options.setup.categories ||  ['Natur'];
+            this.options.setup.categories = this.options.setup.categories || ['Natur'];
+            this.options.player.answer_delay = this.options.player.answer_delay || 3000;
+            this.options.player.correct_delay = this.options.player.correct_delay || 2000;
+            this.options.player.wrong_delay = this.options.player.wrong_delay || 2000;
 
             this.getParams();
             window.quizznerOptions = this.options;  // to access it for logging
 
-            console.log(this.label, '>>> INIT');
+            console.log(this.label, '>>> INIT', this.options);
 
             this.on('ready', () => {
                 resolve(this);
@@ -106,13 +109,20 @@ export default class extends Module {
 
     getParams() {
         const query = (new URL(document.location)).searchParams.toString();
-        const params = QueryString.parse(query, { plainObjects: true });
+        const params = QueryString.parse(query, {plainObjects: true});
         this.options = RAMDA.mergeDeepLeft(params, this.options);
 
         // convert some non string values
-        this.options.rounds = this.options.rounds.map(i => parseInt(i));
         this.options.setup.rounds = parseInt(this.options.setup.rounds);
         this.options.debug === 'true' ? this.options.debug = true : this.options.debug = false;
         this.options.skipSetup === 'true' ? this.options.skipSetup = true : this.options.skipSetup = false;
+
+        ['scoring', 'players', 'player', 'rounds'].map(i => {
+            if (this.options[i])
+                Object.keys(this.options[i]).map(k => {
+                    if (this.options[i][k])
+                        this.options[i][k] = parseInt(this.options[i][k]);
+                });
+        });
     }
 }

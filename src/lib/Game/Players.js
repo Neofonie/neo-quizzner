@@ -11,7 +11,7 @@ export default class extends Module {
             this.app = this.game.app;
             this.sound = this.app.sound;
             this.locked = false;
-            this.locked_ms = 3000;
+            this.locked_ms = this.app.options.players.locked_ms || 3000;
             this.fails = 0;
 
             console.log(this.label, '>>> INIT');

@@ -8,14 +8,15 @@ export default class extends Module {
         this.label = 'PLAYER';
         this.players = args.players;
         this.sound = this.players.app.sound;
+        this.app = this.players.app;
         this.name = args.name;
         this.index = args.index;
-        this.app = this.players.app;
         this.keys = ['q', 'c', 'm', 'p'];
         this.key = this.keys[this.index];
         this.timeout = false;
-        this.locked_ms = 3000;
-        this.event_delay = 3000;
+        this.reset_delay = this.app.options.player.reset_delay || 3000;
+        this.correct_delay = this.app.options.player.correct_delay || 2000;
+        this.wrong_delay = this.app.options.player.wrong_delay || 2000;
         this.score = 0;
 
         this.scoring = this.app.options.scoring || {
@@ -71,7 +72,7 @@ export default class extends Module {
 
         setTimeout(() => {
             this.number = false;
-        }, this.event_delay);
+        }, this.reset_delay);
 
         const answer = document.querySelectorAll(`.answers .answer`)[number - 1];
         answer.classList.add('active');
@@ -79,7 +80,7 @@ export default class extends Module {
         if (this.players.game.question.answer[this.number - 1].correct === true) {
             this.score = this.score + (this.scoring.correct - (this.players.fails * this.scoring.correctMinusPerFail));
             this.sound.emit('player-chose-correct');
-            setTimeout(() => this.players.game.emit('correct', number), this.event_delay);
+            setTimeout(() => this.players.game.emit('correct', number), this.correct_delay);
         } else {
             answer.classList.add('wrong');
             this.sound.emit('player-chose-wrong');
@@ -88,7 +89,7 @@ export default class extends Module {
             setTimeout(() => {
                 answer.classList.remove('active', 'wrong');
                 this.players.game.emit('wrong', number);
-            }, 2000);
+            }, this.wrong_delay);
         }
         this.sound.emit('stop-music-question');
         console.log('>>>', this.label, this.name, 'ANSWERS:', number, this.players.game.question);
