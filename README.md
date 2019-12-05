@@ -106,19 +106,16 @@ to configure the `index tab url` for the categories index, give the url as optio
  ## Configure via url get parameters
  
  add `?field=value&other=value` to the url to give different options.  
- Possible fields are:
- ```
- categoriesUrl
- translationsUrl
- skipSetup
- debug
- ```
  
- For examples:
+ For example:
  - [https://neofonie.github.io/neo-quizzner/?skipSetup=true](https://neofonie.github.io/neo-quizzner/?skipSetup=true)
  - [https://neofonie.github.io/neo-quizzner/?debug=true](https://neofonie.github.io/neo-quizzner/?debug=true)
- 
- useful for testing or secret instances with different category index. for example.
+ - [With many options:](https://neofonie.github.io/neo-quizzner/?debug=true&skipSetup=true&setup[players][]=Me,%20myself%20and%20i&setup[rounds]=6)  
+ ```
+ ?debug=true&skipSetup=true&setup[players][]=Me,%20myself%20and%20i&setup[rounds]=6
+ ```
+ useful for testing or secret instances with different category index. for example.  
+ For nested options: `setup[players][]=Me&setup[players][]=You`
  
  ## index.html 
   ```
