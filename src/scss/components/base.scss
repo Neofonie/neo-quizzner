@@ -29,9 +29,6 @@ html {
 body {
     overflow-x: hidden;
 
-    &:before {
-    }
-
     &.loading {
         &:before {
         }
@@ -101,5 +98,3 @@ body {
         }
     }
 }
-
-

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>neofonie quizzner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preload" href="css/fonts/exo-webfont/Exo-Medium.woff2" as="font">
+</head>
+<body class="loading">
+<style>
+    <%STYLE%>
+</style>
+<script>
+    <%SCRIPT%>
+</script>
+<div class="header">
+    <div class="company">
+        <a href="https://neofonie.de" target="_blank">neofonie<span class="claim">quizzner</span></a>
+    </div>
+    <div class="fork">
+        <a href="https://github.com/Neofonie/neo-quizzner" target="_blank"></a>
+    </div>
+</div>
+<script type="module">
+    const options = {
+        categoriesUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTGlI1c9ADznyKQhK6H-SCreZudgyZ4xKN5Fs-7QNmsDTaKTXxbdZWOWi-7urrY0xoICSMUfF5N8Lua/pub?gid=0&single=true&output=csv',
+        translationsUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTGlI1c9ADznyKQhK6H-SCreZudgyZ4xKN5Fs-7QNmsDTaKTXxbdZWOWi-7urrY0xoICSMUfF5N8Lua/pub?gid=833856245&single=true&output=csv',
+        rounds: [6, 12, 18, 24],
+        skipSetup: false,
+        setup: { //
+            players: ['Matze', 'Horst', 'Marie', 'Holger'],
+            categories: ['Natur'],
+            rounds: 3
+        },
+        scoring: {
+            correct: 1000,
+            correctMinusPerFail: 200,
+            wrong: 500
+        },
+        debug: true,
+        sound: false
+    };
+
+    new QUIZZNER(options).then(quizzner => {
+        window.QUIZZNER = quizzner;
+        console.log('>>> ZACK FEDDICH. QUIZZNER READY');
+    });
+</script>
+</body>
+</html>

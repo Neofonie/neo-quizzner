@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --config config/index.js --progress --colors --watch --display-modules ",
-    "build": "cross-env NODE_ENV=prod webpack --config config/index.js"
+    "build": "cross-env NODE_ENV=prod webpack --config config/index.js",
+    "shrink": "cross-env NODE_ENV=shrink webpack --config config/index.js"
   },
   "license": "MIT",
   "devDependencies": {
@@ -19,6 +20,7 @@
     "@babel/runtime": "^7.6.2",
     "animejs": "^3.1.0",
     "babel-loader": "^8.0.6",
+    "base64-inline-loader": "^1.1.1",
     "countup.js": "^2.0.4",
     "cross-env": "^6.0.3",
     "css-loader": "^3.2.0",
@@ -29,6 +31,7 @@
     "file-loader": "^4.2.0",
     "fs-extra": "^8.1.0",
     "node-sass": "^4.12.0",
+    "posthtml": "^0.12.0",
     "ramda": "^0.26.1",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",

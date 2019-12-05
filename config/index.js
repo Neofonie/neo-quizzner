@@ -9,7 +9,7 @@
  * @type {string}
  */
 let env = `${process.env.NODE_ENV || 'dev'}`;
-if(!['dev','prod'].includes(env))
+if(!['dev','prod','shrink'].includes(env))
     env = 'dev';
 
 console.log(`Building in ${env} mode`);
@@ -19,7 +19,8 @@ console.log(`Building in ${env} mode`);
  */
 const configs = {
     dev : require('./development.js'),
-    prod : require('./production.js')
+    prod : require('./production.js'),
+    shrink : require('./shrink.js'),
 };
 
 const configData = new configs[env]();
